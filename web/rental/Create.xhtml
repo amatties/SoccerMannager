@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRentalTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_idRental}" for="idRental" />
+                    <h:inputText id="idRental" value="#{rentalController.selected.idRental}" title="#{bundle.CreateRentalTitle_idRental}" required="true" requiredMessage="#{bundle.CreateRentalRequiredMessage_idRental}"/>
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_rentalDate}" for="rentalDate" />
+                    <h:inputText id="rentalDate" value="#{rentalController.selected.rentalDate}" title="#{bundle.CreateRentalTitle_rentalDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_hour}" for="hour" />
+                    <h:inputText id="hour" value="#{rentalController.selected.hour}" title="#{bundle.CreateRentalTitle_hour}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_fee}" for="fee" />
+                    <h:inputText id="fee" value="#{rentalController.selected.fee}" title="#{bundle.CreateRentalTitle_fee}" />
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_idClient}" for="idClient" />
+                    <h:selectOneMenu id="idClient" value="#{rentalController.selected.idClient}" title="#{bundle.CreateRentalTitle_idClient}" >
+                        <f:selectItems value="#{clientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateRentalLabel_idCourt}" for="idCourt" />
+                    <h:selectOneMenu id="idCourt" value="#{rentalController.selected.idCourt}" title="#{bundle.CreateRentalTitle_idCourt}" >
+                        <f:selectItems value="#{courtController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{rentalController.create}" value="#{bundle.CreateRentalSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{rentalController.prepareList}" value="#{bundle.CreateRentalShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRentalIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

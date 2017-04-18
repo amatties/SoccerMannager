@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListRentalTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListRentalEmpty}" rendered="#{rentalController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{rentalController.items.rowCount > 0}">
+                    <h:outputText value="#{rentalController.pagination.pageFirstItem + 1}..#{rentalController.pagination.pageLastItem + 1}/#{rentalController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{rentalController.previous}" value="#{bundle.Previous} #{rentalController.pagination.pageSize}" rendered="#{rentalController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{rentalController.next}" value="#{bundle.Next} #{rentalController.pagination.pageSize}" rendered="#{rentalController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{rentalController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_idRental}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRental}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_rentalDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rentalDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_hour}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hour}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_fee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fee}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_idClient}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idClient}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRentalTitle_idCourt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCourt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{rentalController.prepareView}" value="#{bundle.ListRentalViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{rentalController.prepareEdit}" value="#{bundle.ListRentalEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{rentalController.destroy}" value="#{bundle.ListRentalDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{rentalController.prepareCreate}" value="#{bundle.ListRentalCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListRentalIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

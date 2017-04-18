@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCourtTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCourtLabel_idCourt}" for="idCourt" />
+                    <h:inputText id="idCourt" value="#{courtController.selected.idCourt}" title="#{bundle.EditCourtTitle_idCourt}" required="true" requiredMessage="#{bundle.EditCourtRequiredMessage_idCourt}"/>
+                    <h:outputLabel value="#{bundle.EditCourtLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{courtController.selected.type}" title="#{bundle.EditCourtTitle_type}" />
+                    <h:outputLabel value="#{bundle.EditCourtLabel_price}" for="price" />
+                    <h:inputText id="price" value="#{courtController.selected.price}" title="#{bundle.EditCourtTitle_price}" />
+                    <h:outputLabel value="#{bundle.EditCourtLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{courtController.selected.name}" title="#{bundle.EditCourtTitle_name}" />
+                </h:panelGrid>
+                <h:commandLink action="#{courtController.update}" value="#{bundle.EditCourtSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCourtViewLink}"/>
+                <br />
+                <h:commandLink action="#{courtController.prepareList}" value="#{bundle.EditCourtShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCourtIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
